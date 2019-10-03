@@ -9,12 +9,12 @@ const provider= new HDWalletProvider(
 
 const web3= new Web3(provider);     //unlocking the account using seed and a gateway to ethereum network
 
-const pType= 'House';
-const pAddress= 'House 1, street 1, F-10/3';
+const pType= 'Flat';
+const pAddress= 'Building Arcade, street 1, F-10/3';
 const pCity= 'Islamabad';
-const pSizeInSquareFeet= '5200';
-const pLongitude= '73.047882';
+const pSizeInSquareFeet= '500';
 const pLatitude= '33.684422';
+const pLongitude= '73.047882';
 
 const deploy = async () =>{
     const accounts= await web3.eth.getAccounts();   //keeping sub accounts of unlocked account
@@ -22,9 +22,10 @@ const deploy = async () =>{
     console.log('Attempting to deploy from account', accounts[0]);
 
     const result = await new web3.eth.Contract(JSON.parse(interface))
-    .deploy({ data: bytecode, arguments: [pType,pAddress,pCity,pSizeInSquareFeet,pLongitude,pLatitude] })
+    .deploy({ data: bytecode, arguments: [pType,pAddress,pCity,pSizeInSquareFeet,pLatitude,pLongitude] })
     .send({ gas: '1000000', from: accounts[0] });
 
+    //console.log(result);
     console.log('Contract deployed to address ', result.options.address)
 
 };
