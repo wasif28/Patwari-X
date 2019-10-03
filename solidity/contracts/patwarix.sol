@@ -48,9 +48,8 @@ contract Property{
 
     //Data Trails of Accounts
 
-    address[] public chainOfOwners;
-    //time public timestamp[];
-
+    address[] public chainOfOwners; //owners stored in chronological order
+    //address public previousContract;  //if a new contract deployed for the same propoerty
 
     //manual documentation/files
 
@@ -78,9 +77,33 @@ contract Property{
         require(owner==0); 
         
         owner= firstOwner;
+        updateChainOfOwner();
     }
     
+    function updateChainOfOwner() private{  //helper function used to add the owner during transaction to the chainOfOwners
     
+        chainOfOwners.push(owner);
+    }
+    
+    function changePropertyType(string newType) public {
+        require(msg.sender==authority);
+        
+        //TODO: implement escrow
+        
+        pType=newType;
+    }
+    
+    function changePropertyName(string newName) public {
+        require(msg.sender==authority);
+        
+        //TODO: implement escrow
+        
+        pName=newName;
+    }
+    
+    function getChainOfOwners() public view returns (address[]){ //return the entire array of all the chainOfOwners
+        return chainOfOwners;
+    }
     
     
 }
