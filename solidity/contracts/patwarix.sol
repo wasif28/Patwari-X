@@ -11,7 +11,7 @@ contract Property{
         string public pLongitude;
         string public pLatitude;
         
-        string pName; //optional used for named Propeties i.e. buildings, malls
+        string public pName; //optional used for named Propeties i.e. buildings, malls
         
         // string pKhewatNumber;
         // string pKhatoniNumber;
@@ -49,7 +49,7 @@ contract Property{
     //Data Trails of Accounts
 
     address[] public chainOfOwners; //owners stored in chronological order
-    //address public previousContract;  //if a new contract deployed for the same propoerty
+    address public previousContract;  //if a new contract deployed for the same propoerty also used to implement chunking of land
 
     //manual documentation/files
 
@@ -67,6 +67,7 @@ contract Property{
         pSizeInSquareFeet= _pSizeInSquareFeet;
         pLatitude= _pLatitude;
         pLongitude= _pLongitude;
+        pName="";
         
     }
     
@@ -85,24 +86,89 @@ contract Property{
         chainOfOwners.push(owner);
     }
     
-    function changePropertyType(string newType) public {
+    function changePropertyType(string newType) public {        //used to change type of propoerty
         require(msg.sender==authority);
         
-        //TODO: implement escrow
+        if(owner!=0){       //makes sure if owned by someone his signature is necessary
+            require(seller==owner);
+        }
         
         pType=newType;
+        resetEscrow();
     }
     
-    function changePropertyName(string newName) public {
+    function changePropertyName(string newName) public {        //used to change name of propoerty
         require(msg.sender==authority);
         
-        //TODO: implement escrow
+        if(owner!=0){       //makes sure if owned by someone his signature is necessary
+            require(seller==owner);
+        }
         
         pName=newName;
+        resetEscrow();
     }
     
     function getChainOfOwners() public view returns (address[]){ //return the entire array of all the chainOfOwners
         return chainOfOwners;
+    }
+    
+    function sellerSign () public{        //used to sign by the seller
+        require(owner!=0);
+        require(msg.sender==owner);
+        
+        seller=msg.sender; //seller signs his consent to sell
+    }
+    
+    //TODO: can implement cancel in between escrow operation should be with penalty
+    
+    function buyerSign() public{        //used to sign by the buyer
+        require(owner!=0);      //makes sure InitialAllotment done
+        require(owner==seller);
+        
+        buyer= msg.sender;  //buyer signs his consent to buy
+    }
+    
+    function verificationAuthoritySign(address sellerVerify, address buyerVerify)public{        //used to verify the signs and sign by the authority
+        require(owner!=0);
+        require(authority==msg.sender);
+        
+        require(seller!=0); //makes sure seller has signed
+        require(buyer!=0); //makes sure buyer has signed
+        
+        //verifying that the signed public addresses match what they should be
+        
+        require(seller==sellerVerify);
+        require(owner==sellerVerify);
+        
+        require(buyer==buyerVerify);
+
+        //authority now signs the escrow if every condition is true
+        verificationAuthority=msg.sender;
+    }
+    
+    function pullTransaction()public{       //used to complete a transaction after escrow is settled
+        require(owner!=0);
+        require(authority==msg.sender);
+        
+        owner=buyer;
+        updateChainOfOwner();
+        resetEscrow();
+    }
+    
+    function cancelTransactionByAuthority()public{
+        require(authority==msg.sender);
+        resetEscrow();
+    }
+    
+    function cancelTransactionByOwner()public{
+        require(owner==msg.sender);
+        resetEscrow();
+    }
+    
+    function resetEscrow() private{     //used to reset escrow to 0
+        seller=0;
+        buyer=0;
+        verificationAuthority=0;
     }
     
     
