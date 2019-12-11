@@ -49,7 +49,7 @@ contract Property{
     //Data Trails of Accounts
 
     address[] public chainOfOwners; //owners stored in chronological order
-    address public previousContract;  //if a new contract deployed for the same propoerty also used to implement chunking of land
+    //address public previousContract;  //if a new contract deployed for the same propoerty also used to implement chunking of land
 
     //manual documentation/files
 
@@ -149,6 +149,7 @@ contract Property{
     function pullTransaction()public{       //used to complete a transaction after escrow is settled
         require(owner!=0);
         require(authority==msg.sender);
+        require(verificationAuthority==msg.sender);
         
         owner=buyer;
         updateChainOfOwner();
