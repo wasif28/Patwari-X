@@ -9,4 +9,4 @@ const web3 = new Web3(provider);
 const contract_Address="0xF8C410d28848644328540DDF74E17c970ab8b6d5";
 const contract = new web3.eth.Contract(JSON.parse(interface), contract_Address);
 
-const result= contract.methods.verificationAuthority().call().then(console.log);
+const result= contract.methods.getChainOfOwners().call().then(console.log);
