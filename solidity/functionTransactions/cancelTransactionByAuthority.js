@@ -11,7 +11,6 @@ const web3= new Web3(provider);     //unlocking the account using seed and a gat
 
 //variables used as parameters
 
-const firstOwner= '0x1904359446894C41733e963661D0c5C1B2Da7C58' //can only input string that is an address
 
 const transact = async () =>{
 
@@ -23,7 +22,7 @@ const transact = async () =>{
     const contract_Address="0xF8C410d28848644328540DDF74E17c970ab8b6d5";
     const contract = new web3.eth.Contract(JSON.parse(interface), contract_Address);
 
-    const result= contract.methods.initialAllotment(firstOwner).send({
+    const result= contract.methods.cancelTransactionByAuthority().send({
         from: accounts[0]
         //gas: '1000000'
     });
