@@ -4,6 +4,7 @@ before using the files go to the directory ./solidity
 RUN the command
 
 npm install --save solc@0.4.17
+npm install --save web3@1.0.0-beta.35
 
 npm install
 
