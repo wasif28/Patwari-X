@@ -12,7 +12,7 @@ npm install
 
 Web3 INSTALL ISSUES ON WINDOWS
 
-If you are using Windows, you need to install additional dependencies right now (before continuing to the next video).  If you are running OSX or a Linux-based OS, skip this and continue on.
+If you are using Windows, you need to install additional dependencies right now.  If you are running OSX or a Linux-based OS, skip this and continue on.
 
 If you already attempted to install web3 and get errors about Visual Studio C++ tools not being installed or MSBuild errors then the following steps should help you.
 
