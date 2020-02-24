@@ -1,6 +1,6 @@
 const HDWalletProvider= require('truffle-hdwallet-provider');
 const Web3= require('web3');
-const {interface, bytecode}= require('./compile');
+const {interface, bytecode}= require('../compile');
 
 const provider= new HDWalletProvider(   //add private key here to sign transactions
     'glance inform cactus narrow negative turn grit mom soon repair assault sound',
@@ -20,10 +20,10 @@ const transact = async () =>{
 
     //const contract_Address="<ADD DEPLOYED ADDRESS HERE>";
     const contract_Address="0xF8C410d28848644328540DDF74E17c970ab8b6d5";
-    const contract = new web3.eth.Contract(JSON.parse(interface), contract_Address);
+    const contract = await new web3.eth.Contract(JSON.parse(interface), contract_Address);
 
-    const result= contract.methods.buyerSign().send({
-        from: accounts[0]
+    const result= await contract.methods.buyerSign().send({
+        from: accounts[2]
         //gas: '1000000'
     });
 
