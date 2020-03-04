@@ -6,7 +6,7 @@ const provider = new Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/b
 const web3 = new Web3(provider);
 
 //const contract_Address="<ADD DEPLOYED ADDRESS HERE>";
-const contract_Address="0xF8C410d28848644328540DDF74E17c970ab8b6d5";
+const contract_Address="0xFc15Ea71C8F2DaE2c211D877Eb9618d31eEa0710";
 const contract = new web3.eth.Contract(JSON.parse(interface), contract_Address);
 
 const result= contract.methods.owner().call().then(console.log);

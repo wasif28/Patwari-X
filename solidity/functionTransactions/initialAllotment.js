@@ -23,10 +23,11 @@ const transact = async () =>{
     const contract_Address="0xF8C410d28848644328540DDF74E17c970ab8b6d5";
     const contract = await new web3.eth.Contract(JSON.parse(interface), contract_Address);
 
-    const result= await contract.methods.initialAllotment(firstOwner).send({
-        from: accounts[0]
-        //gas: '1000000'
-    });
+    const gasEstimate= await contract.methods.InitialAllotment(firstOwner).estimateGas().then(console.log);
+    // const result= await contract.methods.InitialAllotment(firstOwner).send({
+    //     from: accounts[0]
+    //     //gas:  "100000000" 
+    // });
 
     //console.log(result);
     console.log('Contract hash on address ', result.options.address)
@@ -34,3 +35,6 @@ const transact = async () =>{
 };
 
 transact();
+
+
+

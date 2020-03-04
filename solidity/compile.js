@@ -6,7 +6,7 @@ const patwarixPath= path.resolve(__dirname, 'contracts', 'patwarix.sol');
 const source = fs.readFileSync(patwarixPath, 'utf8');
 
 //console.log(source);
-//console.log(solc.compile(source, 1).contracts[':Property']);
+console.log(solc.compile(source, 1).contracts[':Property']);
 
 module.exports = solc.compile(source, 1).contracts[':Property'];
 

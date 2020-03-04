@@ -6,7 +6,7 @@ RUN the command
 npm install
 
 npm install --save solc@0.4.17
-npm install --save web3@1.0.0-beta.26
+npm install --save web3@1.2.6
 
 npm install
 
