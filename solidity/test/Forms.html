@@ -363,17 +363,34 @@
     <script>
         
 
-        window.addEventListener('load', () =>{
-            if (typeof window.Web3 !== 'undefined') {
-
-            // Ethereum user detected. You can now use the provider.            
-                
+        window.addEventListener('load', async () => {
+            // Modern dapp browsers...
+            if (window.ethereum) {
+                window.web3 = new Web3(ethereum);
+                try {
+                // Request account access if needed
+                await ethereum.enable();
+                // Acccounts now exposed
+                } catch (error) {
+                // User denied account access...
+                }
             }
+            // Legacy dapp browsers...
+            else if (window.web3) {
+                window.web3 = new Web3(web3.currentProvider);
+                // Acccounts always exposed
+            }
+            // Non-dapp browsers...
+            else {
+                const provider = new window.Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/bc9f0a0f50c04156be54a5d68fe4184b");
+                window.web3 = new window.Web3(provider);
+                
+                //read only functionality
+                //enforce use of metamask to enable transactions
+                console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+            }            
 
-            const provider = new window.Web3.providers.HttpProvider("https://rinkeby.infura.io/v3/bc9f0a0f50c04156be54a5d68fe4184b");
-            window.web3 = new window.Web3(provider);
-            
-            //console.log(window.Web3);
+        
             console.log(web3.currentProvider);
             console.log(window.web3);
 
@@ -390,7 +407,10 @@
             console.log(pType());
             console.log(seller());
             console.log(verificationAuthority());
+
         })
+
+            //...................................... CALLS TO BLOCKCHAIN READ ONLY DOES NOT ALTER ANYTHING
 
             async function authority(){
                 //console.log(ABI)
@@ -417,7 +437,7 @@
             async function getChainOfOwners(){
 
                 //const contract_Address="<ADD DEPLOYED ADDRESS HERE>";
-                    const contract_Address="0xFc15Ea71C8F2DaE2c211D877Eb9618d31eEa0710";
+                const contract_Address="0xFc15Ea71C8F2DaE2c211D877Eb9618d31eEa0710";
                 const contract = new web3.eth.Contract(ABI, contract_Address);
 
                 const result= await contract.methods.getChainOfOwners().call();
@@ -428,7 +448,7 @@
             async function owner(){
                 
                 //const contract_Address="<ADD DEPLOYED ADDRESS HERE>";
-                    const contract_Address="0xFc15Ea71C8F2DaE2c211D877Eb9618d31eEa0710";
+                const contract_Address="0xFc15Ea71C8F2DaE2c211D877Eb9618d31eEa0710";
                 const contract = new web3.eth.Contract(ABI, contract_Address);
 
                 const result= await contract.methods.owner().call();
@@ -439,7 +459,7 @@
             async function pAddress(){
                 
                 //const contract_Address="<ADD DEPLOYED ADDRESS HERE>";
-                    const contract_Address="0xFc15Ea71C8F2DaE2c211D877Eb9618d31eEa0710";
+                const contract_Address="0xFc15Ea71C8F2DaE2c211D877Eb9618d31eEa0710";
                 const contract = new web3.eth.Contract(ABI, contract_Address);
 
                 const result= await contract.methods.pAddress().call();
@@ -449,7 +469,7 @@
             async function pCity(){
                 
                 //const contract_Address="<ADD DEPLOYED ADDRESS HERE>";
-                    const contract_Address="0xFc15Ea71C8F2DaE2c211D877Eb9618d31eEa0710";
+                const contract_Address="0xFc15Ea71C8F2DaE2c211D877Eb9618d31eEa0710";
                 const contract = new web3.eth.Contract(ABI, contract_Address);
 
                 const result= await contract.methods.pCity().call();
@@ -460,7 +480,7 @@
             async function pLatitude(){
                 
                 //const contract_Address="<ADD DEPLOYED ADDRESS HERE>";
-                    const contract_Address="0xFc15Ea71C8F2DaE2c211D877Eb9618d31eEa0710";
+                const contract_Address="0xFc15Ea71C8F2DaE2c211D877Eb9618d31eEa0710";
                 const contract = new web3.eth.Contract(ABI, contract_Address);
 
                 const result= await contract.methods.pLatitude().call();
@@ -471,7 +491,7 @@
             async function pLongitude(){
                 
                 //const contract_Address="<ADD DEPLOYED ADDRESS HERE>";
-                    const contract_Address="0xFc15Ea71C8F2DaE2c211D877Eb9618d31eEa0710";
+                const contract_Address="0xFc15Ea71C8F2DaE2c211D877Eb9618d31eEa0710";
                 const contract = new web3.eth.Contract(ABI, contract_Address);
 
                 const result= await contract.methods.pLongitude().call();
@@ -482,7 +502,7 @@
             async function pName(){
                 
                 //const contract_Address="<ADD DEPLOYED ADDRESS HERE>";
-                    const contract_Address="0xFc15Ea71C8F2DaE2c211D877Eb9618d31eEa0710";
+                const contract_Address="0xFc15Ea71C8F2DaE2c211D877Eb9618d31eEa0710";
                 const contract = new web3.eth.Contract(ABI, contract_Address);
 
                 const result= await contract.methods.pName().call();
@@ -493,7 +513,7 @@
             async function pSizeInSquareFeet(){
                 
                 //const contract_Address="<ADD DEPLOYED ADDRESS HERE>";
-                    const contract_Address="0xFc15Ea71C8F2DaE2c211D877Eb9618d31eEa0710";
+                const contract_Address="0xFc15Ea71C8F2DaE2c211D877Eb9618d31eEa0710";
                 const contract = new web3.eth.Contract(ABI, contract_Address);
 
                 const result= await contract.methods.pSizeInSquareFeet().call();
@@ -504,7 +524,7 @@
             async function pType(){
                 
                 //const contract_Address="<ADD DEPLOYED ADDRESS HERE>";
-                    const contract_Address="0xFc15Ea71C8F2DaE2c211D877Eb9618d31eEa0710";
+                const contract_Address="0xFc15Ea71C8F2DaE2c211D877Eb9618d31eEa0710";
                 const contract = new web3.eth.Contract(ABI, contract_Address);
 
                 const result= await contract.methods.pType().call();
@@ -515,7 +535,7 @@
             async function seller(){
                 
                 //const contract_Address="<ADD DEPLOYED ADDRESS HERE>";
-                    const contract_Address="0xFc15Ea71C8F2DaE2c211D877Eb9618d31eEa0710";
+                const contract_Address="0xFc15Ea71C8F2DaE2c211D877Eb9618d31eEa0710";
                 const contract = new web3.eth.Contract(ABI, contract_Address);
 
                 const result= await contract.methods.seller().call();
@@ -526,7 +546,7 @@
             async function verificationAuthority(){
                 
                 //const contract_Address="<ADD DEPLOYED ADDRESS HERE>";
-                    const contract_Address="0xFc15Ea71C8F2DaE2c211D877Eb9618d31eEa0710";
+                const contract_Address="0xFc15Ea71C8F2DaE2c211D877Eb9618d31eEa0710";
                 const contract = new web3.eth.Contract(ABI, contract_Address);
 
                 const result= await contract.methods.verificationAuthority().call();
@@ -536,91 +556,417 @@
         
 
 
+            //................................... CALLS TO BLOCKCHAIN TRANSACTIONS CAN ALTER DATA
 
+            async function buyerSign(){
+
+                let account;
+
+                try {
+                    account = await ethereum.enable()
+                    // You now have an array of accounts!
+                    console.log(accounts);
+
+                } 
+                
+                catch (error) {
+                    if (error.code === 4001) { // EIP 1193 userRejectedRequest error
+                        console.log('Please connect to MetaMask.')
+                    } else {
+                        console.log(error)
+                    }
+                }
+
+                //const contract_Address="<ADD DEPLOYED ADDRESS HERE>";
+                const contract_Address="0xF8C410d28848644328540DDF74E17c970ab8b6d5";
+
+                //send saved ABI and Contract Address of the contract to interact with
+                const contract = await new web3.eth.Contract(ABI, contract_Address);
+
+                const result = await contract.methods.buyerSign().send({
+                    from: account[0],
+                    gas: 5000000
+                })
+
+            }
+
+            async function cancelTransactionByAuthority(){
+
+                let account;
+
+                try {
+                    account = await ethereum.enable()
+                    // You now have an array of accounts!
+                    console.log(accounts);
+
+                } 
+                
+                catch (error) {
+                    if (error.code === 4001) { // EIP 1193 userRejectedRequest error
+                        console.log('Please connect to MetaMask.')
+                    } else {
+                        console.log(error)
+                    }
+                }
+
+                //const contract_Address="<ADD DEPLOYED ADDRESS HERE>";
+                const contract_Address="0xF8C410d28848644328540DDF74E17c970ab8b6d5";
+
+                //send saved ABI and Contract Address of the contract to interact with
+                const contract = await new web3.eth.Contract(ABI, contract_Address);
+
+                const result = await contract.methods.cancelTransactionByAuthority().send({
+                    from: account[0],
+                    gas: 5000000
+                })
+
+            }
+
+            async function cancelTransactionByOwner(){
+
+                let account;
+
+                try {
+                    account = await ethereum.enable()
+                    // You now have an array of accounts!
+                    console.log(accounts);
+
+                } 
+                
+                catch (error) {
+                    if (error.code === 4001) { // EIP 1193 userRejectedRequest error
+                        console.log('Please connect to MetaMask.')
+                    } else {
+                        console.log(error)
+                    }
+                }
+
+                //const contract_Address="<ADD DEPLOYED ADDRESS HERE>";
+                const contract_Address="0xF8C410d28848644328540DDF74E17c970ab8b6d5";
+
+                //send saved ABI and Contract Address of the contract to interact with
+                const contract = await new web3.eth.Contract(ABI, contract_Address);
+
+                const result = await contract.methods.cancelTransactionByOwner().send({
+                    from: account[0],
+                    gas: 5000000
+                })
+
+            }
+
+            async function changePropertyName(NewName){
+
+                let account;
+
+                try {
+                    account = await ethereum.enable()
+                    // You now have an array of accounts!
+                    console.log(accounts);
+
+                } 
+                
+                catch (error) {
+                    if (error.code === 4001) { // EIP 1193 userRejectedRequest error
+                        console.log('Please connect to MetaMask.')
+                    } else {
+                        console.log(error)
+                    }
+                }
+
+                //const contract_Address="<ADD DEPLOYED ADDRESS HERE>";
+                const contract_Address="0xF8C410d28848644328540DDF74E17c970ab8b6d5";
+
+                //send saved ABI and Contract Address of the contract to interact with
+                const contract = await new web3.eth.Contract(ABI, contract_Address);
+
+                const result = await contract.methods.changePropertyName(NewName).send({
+                    from: account[0],
+                    gas: 5000000
+                })
+
+            }
+
+            async function changePropertyType(NewType){
+
+                let account;
+
+                try {
+                    account = await ethereum.enable()
+                    // You now have an array of accounts!
+                    console.log(accounts);
+
+                } 
+                
+                catch (error) {
+                    if (error.code === 4001) { // EIP 1193 userRejectedRequest error
+                        console.log('Please connect to MetaMask.')
+                    } else {
+                        console.log(error)
+                    }
+                }
+
+                //const contract_Address="<ADD DEPLOYED ADDRESS HERE>";
+                const contract_Address="0xF8C410d28848644328540DDF74E17c970ab8b6d5";
+
+                //send saved ABI and Contract Address of the contract to interact with
+                const contract = await new web3.eth.Contract(ABI, contract_Address);
+
+                const result = await contract.methods.changePropertyType(NewType).send({
+                    from: account[0],
+                    gas: 5000000
+                })
+
+            }
+
+            async function InitialAllotment(FirstOwnerAddress){
+
+                let account;
+
+                try {
+                    account = await ethereum.enable()
+                    // You now have an array of accounts!
+                    console.log(accounts);
+
+                } 
+                
+                catch (error) {
+                    if (error.code === 4001) { // EIP 1193 userRejectedRequest error
+                        console.log('Please connect to MetaMask.')
+                    } else {
+                        console.log(error)
+                    }
+                }
+
+                //const contract_Address="<ADD DEPLOYED ADDRESS HERE>";
+                const contract_Address="0xF8C410d28848644328540DDF74E17c970ab8b6d5";
+
+                //send saved ABI and Contract Address of the contract to interact with
+                const contract = await new web3.eth.Contract(ABI, contract_Address);
+
+                const result = await contract.methods.InitialAllotment(FirstOwnerAddress).send({
+                    from: account[0],
+                    gas: 5000000
+                })
+
+            }
+
+            async function pullTransaction(){
+
+                let account;
+
+                try {
+                    account = await ethereum.enable()
+                    // You now have an array of accounts!
+                    console.log(accounts);
+
+                } 
+                
+                catch (error) {
+                    if (error.code === 4001) { // EIP 1193 userRejectedRequest error
+                        console.log('Please connect to MetaMask.')
+                    } else {
+                        console.log(error)
+                    }
+                }
+
+                //const contract_Address="<ADD DEPLOYED ADDRESS HERE>";
+                const contract_Address="0xF8C410d28848644328540DDF74E17c970ab8b6d5";
+
+                //send saved ABI and Contract Address of the contract to interact with
+                const contract = await new web3.eth.Contract(ABI, contract_Address);
+
+                const result = await contract.methods.pullTransaction().send({
+                    from: account[0],
+                    gas: 5000000
+                })
+
+            }
+
+            async function sellerSign(){
+
+                let account;
+
+                try {
+                    account = await ethereum.enable()
+                    // You now have an array of accounts!
+                    console.log(accounts);
+
+                } 
+                
+                catch (error) {
+                    if (error.code === 4001) { // EIP 1193 userRejectedRequest error
+                        console.log('Please connect to MetaMask.')
+                    } else {
+                        console.log(error)
+                    }
+                }
+
+                //const contract_Address="<ADD DEPLOYED ADDRESS HERE>";
+                const contract_Address="0xF8C410d28848644328540DDF74E17c970ab8b6d5";
+
+                //send saved ABI and Contract Address of the contract to interact with
+                const contract = await new web3.eth.Contract(ABI, contract_Address);
+
+                const result = await contract.methods.sellerSign().send({
+                    from: account[0],
+                    gas: 5000000
+                })
+
+            }
+
+            async function verificationAuthoritySign(sellerAddress,buyerAddress){
+
+                let account;
+
+                try {
+                    account = await ethereum.enable()
+                    // You now have an array of accounts!
+                    console.log(accounts);
+
+                } 
+                
+                catch (error) {
+                    if (error.code === 4001) { // EIP 1193 userRejectedRequest error
+                        console.log('Please connect to MetaMask.')
+                    } else {
+                        console.log(error)
+                    }
+                }
+
+                //const contract_Address="<ADD DEPLOYED ADDRESS HERE>";
+                const contract_Address="0xF8C410d28848644328540DDF74E17c970ab8b6d5";
+
+                //send saved ABI and Contract Address of the contract to interact with
+                const contract = await new web3.eth.Contract(ABI, contract_Address);
+
+                const result = await contract.methods.verificationAuthoritySign(sellerAddress,buyerAddress).send({
+                    from: account[0],
+                    gas: 5000000
+                })
+
+            }
 
 
     </script>
 
 </head>
 <body>
-    
+
+    <h1>Read Only Functions</h1>
+
     <hr>
 
-    <input type="text" id="authority">
-    <button onclick="">authority</button>
+    <p>Authority</p>
     <p id="resultAuthority"></p>
 
     <hr>
 
-    <input type="text" id="buyer">
-    <button onclick="">buyer</button>
+    <p>Buyer</p>
     <p id="resultBuyer"></p>
 
     <hr>
 
-    <input type="text" id="getChainOfOwners">
-    <button onclick="">getChainOfOwners</button>
+    <p>ChainOfOwners</p>
     <p id="resultgetChainOfOwners"></p>
 
     <hr>
 
-    <input type="text" id="owner">
-    <button onclick="">owner</button>
+    <p>Owner</p>
     <p id="resultOwner"></p>
 
     <hr>
 
-    <input type="text" id="pAddress">
-    <button onclick="">pAddress</button>
+    <p>Address</p>
     <p id="resultAddress"></p>
 
     <hr>
 
-    <input type="text" id="pCity">
-    <button onclick="">pCity</button>
+    <p>City</p>
     <p id="resultCity"></p>
 
     <hr>
 
-    <input type="text" id="Latitude">
-    <button onclick="">Latitude</button>
+    <p>Latitude</p>
     <p id="resultLatitude"></p>
 
     <hr>
 
-    <input type="text" id="Longitude">
-    <button onclick="">Longitude</button>
+    <p>Longitude</p>
     <p id="resultLongitude"></p>
 
     <hr>
 
-    <input type="text" id="pName">
-    <button onclick="">pName</button>
+    <p>Property Name</p>
     <p id="resultName"></p>
 
     <hr>
 
-    <input type="text" id="pSize">
-    <button onclick="">pSize</button>
+    <p>Land SizeInSquareFeet</p>
     <p id="resultSize"></p>
 
     <hr>
 
-    <input type="text" id="pType">
-    <button onclick="">pType</button>
+    <p>Property Type</p>
     <p id="resultType"></p>
 
     <hr>
 
-    <input type="text" id="seller">
-    <button onclick="">seller</button>
+    <p>Seller</p>
     <p id="resultSeller"></p>
 
     <hr>
 
-    <input type="text" id="verificationAuthority">
-    <button onclick="">verificationAuthority</button>
+    <p>Verification Authority</p>
     <p id="resultVerificationAuthority"></p>
+
+    <hr>
+    
+    <h1>Transactional Functions</h1>
+
+    <hr>
+
+    <input type="text">
+    <button onclick="buyerSign()">buyerSign</button>
+
+    <hr>
+
+    <input type="text">
+    <button onclick="cancelTransactionByAuthority()">cancelTransactionByAuthority</button>
+
+    <hr>
+
+    <input type="text">
+    <button onclick="cancelTransactionByOwner()">cancelTransactionByOwner</button>
+
+    <hr>
+
+    <input type="text" id="NewName">
+    <button onclick="changePropertyName('Centaurus Mall')">changePropertyName</button>
+
+    <hr>
+
+    <input type="text" id="NewType">
+    <button onclick="changePropertyType('SkyScraper')">changePropertyType</button>
+
+    <hr>
+
+    <input type="text" id="FirstOwnerAddress">
+    <button onclick="InitialAllotment('0x1904359446894C41733e963661D0c5C1B2Da7C58') ">InitialAllotment</button>
+
+    <hr>
+
+    <input type="text">
+    <button onclick="pullTransaction()">pullTransaction</button>
+
+    <hr>
+
+    <input type="text">
+    <button onclick="sellerSign()">sellerSign</button>
+
+    <hr>
+
+    <input type="text">
+    <button onclick="verificationAuthoritySign('0x1904359446894C41733e963661D0c5C1B2Da7C58','0x80aB885946FD5C12fEd4C644b1215AE0a1168A36')">verificationAuthoritySign</button>
 
 
 </body>
