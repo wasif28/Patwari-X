@@ -1,0 +1,136 @@
+body{
+    background:#fff;
+}
+.subscribe-area {
+    width: 420px;
+    margin: 0 auto;
+    h4 {
+        font-size: 23px;
+        letter-spacing: 1.5px;
+        font-weight: normal;
+        margin: 10px auto 20px;
+    }
+    .form-subscribe {
+        position: relative;
+        width: 100%;
+        button {
+            position: absolute;
+            right: 7px;
+            top: 6px;
+            text-transform: uppercase;
+            padding: 8px 10px;
+            background: green;
+            border: none;
+            font-size: 12px;
+            color: white;
+            border-radius: 4px;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+    .input-subscribe {
+        padding: 12px 100px 12px 20px;
+        background: #eee;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        color: #555;
+        width: 420px;
+        box-sizing: border-box;
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+
+.subscribe-input
+{
+    padding-right: 10px;
+    padding-top: 10px;
+}
+
+
+
+
+
+
+.main-carousel{
+    .swiper-slide{              
+        text-align: center;
+        padding-bottom: 66.25%;
+        position: relative;
+        overflow: hidden;  
+        background: rgba(0, 0, 0, 0.04);         
+    }
+    img{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+    } 
+    .control-icons{ 
+        position: absolute;
+        z-index: 2; 
+        top: 24px;
+        right: 20px;
+        button.mat-button{
+            min-width: 36px;
+            width: 36px;
+            padding: 0;
+            margin: 0 4px;
+            background: rgba(255, 252, 252, 0.6);
+            transition: 0.2s; 
+            color:rgba(0, 0, 0, 0.87);
+            &:disabled{
+                color: rgba(0, 0, 0, 0.26); 
+            }
+            &:hover:enabled{
+                background: rgba(255, 252, 252, 1);
+            }             
+        }
+    }
+}
+.small-carousel{ 
+    .swiper-slide{  
+        img{
+            display: block;
+            opacity: 0.3;
+        }
+        &.active-thumb{
+            img{ 
+                border-width: 3px;
+                border-style: solid;
+                box-sizing: border-box;
+                opacity: 1;
+            }           
+        } 
+        .swiper-lazy-preloader{
+            margin-top: 10px;
+        }        
+    } 
+}
+ 
+.widget{ 
+    margin-bottom: 40px;
+    .widget-title{
+        margin: 0 -16px 16px;
+        padding: 8px 16px;
+        text-transform: uppercase;
+        font-weight: 500;
+    }
+    &:first-child{  
+        .widget-title{
+            margin: -16px -16px 16px;
+            padding: 8px 16px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+    } 
+} 
